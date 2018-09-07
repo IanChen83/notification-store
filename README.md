@@ -1,11 +1,9 @@
-# `notification-store`
+# notification-store
 
-A isomorphic, topic-based pub-sub system with timer support.
+A topic-based pub-sub notification system with timer support.
 
 ## Usage
 
-```
-const notifier = require('notifier');
+## APIs
 
-// TODO: DEMONSTRATE API
-```
+## Internal APIs
