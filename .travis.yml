@@ -1,0 +1,23 @@
+language: node_js
+node_js:
+  - node
+dist: trusty
+sudo: false
+
+branches:
+  only:
+    - master
+
+test:
+  scripts:
+    - yarn test
+
+cache:
+  yarn: true
+  directories:
+    - node_modules
+
+notifications:
+  email:
+    on_success: never # default: change
+    on_failure: never # default: always

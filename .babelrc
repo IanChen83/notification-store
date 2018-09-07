@@ -1,8 +1,9 @@
 {
   "presets": ["./utils/babel-preset"],
   "ignore": "node_modules/**",
-  "plugins": [
-    "babel-plugin-transform-object-rest-spread",
-    "external-helpers"
-  ]
+  "env": {
+    "test": {
+      "presets": [["env"]]
+    }
+  }
 }
