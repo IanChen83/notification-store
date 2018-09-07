@@ -7,7 +7,7 @@ const exec = (command, extraEnv) =>
   })
 
 // Clean CommonJS modules
-exec('rm -f index.js core.js')
+exec('rm -f index.js core.js subscriber.js store.js')
 
 // Clean ES modules
 exec('rm -rf es')
