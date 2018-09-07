@@ -16,7 +16,9 @@
     "es/",
     "umd/",
     "index.js",
-    "core.js"
+    "core.js",
+    "subscriber.js",
+    "store.js"
   ],
   "repository": {
     "type": "git",
