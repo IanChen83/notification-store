@@ -8,10 +8,8 @@ branches:
   only:
     - master
 
-test:
-  scripts:
-    - yarn test
-    - yarn test --coverageReporters=text-lcov | coveralls
+script:
+  - yarn test-ci
 
 cache:
   yarn: true

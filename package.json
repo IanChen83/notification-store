@@ -27,7 +27,8 @@
   "scripts": {
     "build": "node ./utils/build.js",
     "clean": "node ./utils/clean.js",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "test-ci": "jest --coverage --coverageReporters=text-lcov | coveralls"
   },
   "bugs": {
     "url": "https://github.com/IanChen83/notification-store/issues"
