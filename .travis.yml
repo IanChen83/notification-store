@@ -11,6 +11,7 @@ branches:
 test:
   scripts:
     - yarn test
+    - yarn test --coverageReporters=text-lcov | coveralls
 
 cache:
   yarn: true
