@@ -8,7 +8,7 @@ const config = {
   output: {
     file: 'dist/index.js',
     format: 'umd',
-    name: 'Notifier',
+    name: 'NotificationStore',
   },
   plugins: [
     babel({
