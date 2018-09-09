@@ -3,12 +3,34 @@ import commonjs from 'rollup-plugin-commonjs'
 import resolve from 'rollup-plugin-node-resolve'
 import { terser } from 'rollup-plugin-terser'
 
-const config = {
-  input: 'lib/index.js',
+const packageName = 'NotificationStore'
+
+const files = [
+  {
+    file: 'index.js',
+    name: packageName,
+  },
+  {
+    file: 'core.js',
+    name: `${packageName}.connect`,
+  },
+  {
+    file: 'subscriber.js',
+    name: `${packageName}.createSubscriberStore`,
+  },
+  {
+    file: 'store.js',
+    name: `${packageName}.createStore`,
+  },
+]
+
+const configs = files.map(({ file, name }) => ({
+  input: `lib/${file}`,
   output: {
-    file: 'dist/index.js',
+    dir: 'umd',
     format: 'umd',
-    name: 'NotificationStore',
+    file,
+    name,
   },
   plugins: [
     babel({
@@ -20,10 +42,13 @@ const config = {
       include: /node_modules/,
     }),
   ],
-}
+}))
 
 if (process.env.NODE_ENV === 'production') {
-  config.plugins.push(terser())
+  configs.forEach(c => {
+    c.plugins.push(terser())
+    c.output.file = c.output.file.replace(/\.js$/, '.min.js')
+  })
 }
 
-export default config
+export default configs

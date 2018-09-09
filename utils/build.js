@@ -20,14 +20,14 @@ exec('babel lib -d es --ignore __tests__', {
 
 // Build UMD modules
 console.log('\nBuilding UMD modules ...')
-exec('rollup -c -f umd -o umd/notifier.js', {
+exec('rollup -c rollup.config.js', {
   BABEL_ENV: 'umd',
   NODE_ENV: 'development',
 })
 
 // Build UMD modules
 console.log('\nBuilding UMD production modules ...')
-exec('rollup -c -f umd -o umd/notifier.min.js', {
+exec('rollup -c rollup.config.js', {
   BABEL_ENV: 'umd',
   NODE_ENV: 'production',
 })
