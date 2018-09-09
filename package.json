@@ -1,6 +1,6 @@
 {
   "name": "notification-store",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A topic-based pub-sub notification system with timer support",
   "keywords": [
     "notification",
