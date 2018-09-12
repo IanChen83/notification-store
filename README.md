@@ -1,9 +1,18 @@
+<p align="right">
+<a href="https://travis-ci.com/IanChen83/notification-store"><img src="https://img.shields.io/travis/com/IanChen83/notification-store.svg?style=flat-square" alt="Travis (.com)" /></a>
+<a href="https://coveralls.io/github/IanChen83/notification-store"><img src="https://img.shields.io/coveralls/github/IanChen83/notification-store.svg?style=flat-square" alt="Coverals github" /></a>
+<a href="https://npmjs.com/package/notification-store"><img src="https://img.shields.io/npm/v/notification-store.svg?style=flat-square" alt="npm" /></a>
+<a href="https://npmjs.com/package/notification-store"><img src="https://img.shields.io/bundlephobia/min/notification-store.svg?style=flat-square" /></a>
+</p>
+
 # notification-store
 
 A topic-based pub-sub notification system with timer support. This library can
 be used as a global notification store for your app.
 
-![Travis (.com)](https://img.shields.io/travis/com/IanChen83/notification-store.svg?style=flat-square)![Coveralls github](https://img.shields.io/coveralls/github/IanChen83/notification-store.svg?style=flat-square)![npm](https://img.shields.io/npm/v/notification-store.svg?style=flat-square)![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/notification-store.svg?style=flat-square)
+
+
+
 
 ## Installation
 
