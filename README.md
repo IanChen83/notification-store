@@ -1,18 +1,21 @@
 <p align="right">
-<a href="https://travis-ci.com/IanChen83/notification-store"><img src="https://img.shields.io/travis/com/IanChen83/notification-store.svg?style=flat-square" alt="Travis (.com)" /></a>
-<a href="https://coveralls.io/github/IanChen83/notification-store"><img src="https://img.shields.io/coveralls/github/IanChen83/notification-store.svg?style=flat-square" alt="Coverals github" /></a>
-<a href="https://npmjs.com/package/notification-store"><img src="https://img.shields.io/npm/v/notification-store.svg?style=flat-square" alt="npm" /></a>
-<a href="https://npmjs.com/package/notification-store"><img src="https://img.shields.io/bundlephobia/min/notification-store.svg?style=flat-square" /></a>
+  <a href="https://travis-ci.com/IanChen83/notification-store"><img src="https://img.shields.io/travis/com/IanChen83/notification-store.svg?style=flat-square" alt="Travis (.com)" /></a>
+  <a href="https://coveralls.io/github/IanChen83/notification-store"><img src="https://img.shields.io/coveralls/github/IanChen83/notification-store.svg?style=flat-square" alt="Coverals github" /></a>
+  <a href="https://npmjs.com/package/notification-store"><img src="https://img.shields.io/npm/v/notification-store.svg?style=flat-square" alt="npm" /></a>
+  <a href="https://npmjs.com/package/notification-store"><img src="https://img.shields.io/bundlephobia/min/notification-store.svg?style=flat-square" /></a>
 </p>
 
 # notification-store
 
-A topic-based pub-sub notification system with timer support. This library can
-be used as a global notification store for your app.
+A topic-based pub-sub notification store with timer support. A notification
+store will keep all messages that have been published but not acknowledged,
+and a topic-based, pub-sub system decouples senders and receivers with topics
+(**paths**). Instead of receiving a single message on notification, the
+subscribers will receive all messages in the store when being notified.
 
-
-
-
+The uniqueness of this library lies in that we manage to separate the
+data structure of messages and subscribers. This way, developers can design
+their storing mechanism and integrate this library into the codebase.
 
 ## Installation
 
@@ -71,7 +74,7 @@ button.addEventListener('click', () => {
 subscribe(arr => (button.innerText = arr.length), 'count')
 ```
 
-See this [CodePen](https://codepen.io/ianchen83/pen/qMpREa) for live demo.
+See the [Examples](#Examples) section.
 
 ## APIs
 
@@ -102,7 +105,8 @@ See this [CodePen](https://codepen.io/ianchen83/pen/qMpREa) for live demo.
     removed in `duration` (ms).
 
 - `acknowledge(key)`:
-  Remove the payload from the store.
+  Remove the payload from the store. If it is already removed, calling this
+  function won't cause error.
 
 ## Internal APIs
 
@@ -149,15 +153,15 @@ If you want to customize the way messages are stored, you have to
 mimic this function.
 
 - `publish(data, funcs)`:
-  this function adds data to the store and calls all funcs with a list of
-  payload.
+  this function adds data to the store and calls all funcs with an array of
+  payloads that have been in the store.
 
   - data: an object with shape `{ key, callback, duration, payload }`
   - funcs: a iterable containing all functions that will be notified.
 
 - `cancel(data, funcs)`:
-  this function removes data from the store and calls all funcs with a list of
-  payload.
+  this function removes data from the store and calls all funcs with an array
+  of payloads that have been in the store.
   - data: an object with shape `{ key, callback, duration, payload }`
   - funcs: a iterable containing all functions that will be notified.
 
@@ -175,13 +179,21 @@ Therefore, to integrate this library with Redux, we have two options:
 
 1. Write a function that subscribes to the notification store. Inside
    the function, dispatch an action to update the Redux store. This methods
-   will have duplicated message arrays, but you don't have to fight with
-   internal APIs of notification store.
+   will have duplicated message arrays in Redux and in this library, but you
+   don't have to fight with internal APIs of notification store.
 2. Write your own `publish` and `cancel` functions which dispatch actions to
-   add/remove data from the store of Redux. Then, similar to `lib/index.js`,
+   add/remove data from Redux store. Then, similar to `lib/index.js`,
    connect `getClients` (from `notification-store/subscribers`), `publish`,
-   and `cancel`, get the `notify` and `cancel` function. Note that you
-   shouldn't modify this part of Redux store with reducers, otherwise
-   subscribers won't be immediately notified.
+   and `cancel`, get `notify` and `acknowledge` function and expose them. Note
+   that other reducers shouldn't modify this part of Redux store, otherwise
+   subscribers won't be immediately notified. See [Examples](#Examples).
 
-**TODO** an example
+## Examples
+
+- [Vanilla usage (on CodeSandbox)](https://codesandbox.io/s/3y282o01rm)
+- [With React (on CodeSandbox)](https://codesandbox.io/s/3y282o01rm)
+- [With Reach & Redux (on CodeSandbox)](https://codesandbox.io/s/0343rvn8pl)
+
+## License
+
+MIT
