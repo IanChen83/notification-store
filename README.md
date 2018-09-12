@@ -97,6 +97,11 @@ See this [CodePen](https://codepen.io/ianchen83/pen/qMpREa) for live demo.
 
 ## Internal APIs
 
+You can skip this section if your messages and subscription list are stored in
+the `notification-store`. If that is not what you want, the following three
+sections introduce the internal APIs that can help you integrate your
+customization into `notification-store`
+
 #### `createSubscriberStore()` from 'notification-store/subscriber'
 
 This function will return an object
@@ -110,11 +115,15 @@ This function will return an object
 }
 ```
 
-and expose one more function `getClients`
+If you want to customize the way subscription list are stored, you have
+to mimic this function.
 
 - `getClients(path = '*')`:
   return a set of functions subscribing to this `path`.
   - `path`: if omitted, all functions will be returned.
+- `subscribe`: see above.
+- `unsubscribe`: see above.
+- `unsubscribeByPath`: see above.
 
 #### `createStore()` from 'notification-store/store'
 
@@ -126,6 +135,9 @@ This function will return an object
   cancel,
 }
 ```
+
+If you want to customize the way messages are stored, you have to
+mimic this function.
 
 - `publish(data, funcs)`:
   this function adds data to the store and calls all funcs with a list of
@@ -142,21 +154,25 @@ This function will return an object
 
 #### `connect` from 'notification-store/core'
 
-- `connect({ getClients, publish, cancel })`:
-  This function connects subscribers and store together and returns
-  `{ notify, acknowledge }`.
+This function connects subscribers and store together and returns
+`{ notify, acknowledge }`.
+
+- `connect({ getClients, publish, cancel })`
 
 ## Integration with Redux
 
 Redux manages a global state and can only be updated by dispatching an action.
-Therefore, to integrate this library with Redux, you should:
+Therefore, to integrate this library with Redux, we have two options:
 
-1. Write your own `publish` and `cancel` functions. They act as reducers to
-   add/remove data from the store of Redux.
-2. Subscribe to '\*' with a function that dispatch update action each time
-   notified.
-3. Similar to `lib/index.js`, connect `getClients` (from
-   `notification-store/subscribers`), `publish`, and `cancel`, get the
-   `notify` and `cancel` function.
+1. Write a function that subscribes to the notification store. Inside
+   the function, dispatch an action to update the Redux store. This methods
+   will have duplicated message arrays, but you don't have to fight with
+   internal APIs of notification store.
+2. Write your own `publish` and `cancel` functions which dispatch actions to
+   add/remove data from the store of Redux. Then, similar to `lib/index.js`,
+   connect `getClients` (from `notification-store/subscribers`), `publish`,
+   and `cancel`, get the `notify` and `cancel` function. Note that you
+   shouldn't modify this part of Redux store with reducers, otherwise
+   subscribers won't be immediately notified.
 
 **TODO** an example
