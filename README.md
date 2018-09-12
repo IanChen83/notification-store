@@ -58,6 +58,9 @@ NotificationStore.createStore()
 NotificationStore.connect()
 ```
 
+Note that this package can also be used in Node.js, but you have to append
+`.default` after the `require()` function.
+
 ## Quick Start
 
 The main script expose a single class with member functions manipulating the store. A minimal example looks like this:
@@ -129,7 +132,7 @@ This function will return an object
 ```
 
 If you want to customize the way subscription list are stored, you have
-to mimic this function.
+to implement your version of this function.
 
 - `getClients(path = '*')`:
   return a set of functions subscribing to this `path`.
@@ -149,8 +152,8 @@ This function will return an object
 }
 ```
 
-If you want to customize the way messages are stored, you have to
-mimic this function.
+If you want to customize the way messages are stored or optimize how data are
+sended to the subscribers, you have to implement your version of this function.
 
 - `publish(data, funcs)`:
   this function adds data to the store and calls all funcs with an array of
@@ -168,7 +171,8 @@ mimic this function.
 #### `connect` from 'notification-store/core'
 
 This function connects subscribers and store together and returns
-`{ notify, acknowledge }`.
+`{ notify, acknowledge }`. You don't have to worry about this function,
+just use it to get `notify` and `acknowledge` function.
 
 - `connect({ getClients, publish, cancel })`
 
@@ -192,7 +196,11 @@ Therefore, to integrate this library with Redux, we have two options:
 
 - [Vanilla usage (on CodeSandbox)](https://codesandbox.io/s/3y282o01rm)
 - [With React (on CodeSandbox)](https://codesandbox.io/s/3y282o01rm)
-- [With Reach & Redux (on CodeSandbox)](https://codesandbox.io/s/0343rvn8pl)
+- [With React & Redux (on CodeSandbox)](https://codesandbox.io/s/0343rvn8pl)
+
+## TODO
+
+- Add Promise as a subscriber.
 
 ## License
 
