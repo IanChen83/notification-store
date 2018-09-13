@@ -13,9 +13,12 @@ and a topic-based, pub-sub system decouples senders and receivers with topics
 (**paths**). Instead of receiving a single message on notification, the
 subscribers will receive all messages in the store when being notified.
 
-The uniqueness of this library lies in that we manage to separate the
-data structure of messages and subscribers. This way, developers can design
-their storing mechanism and integrate this library into the codebase.
+This library can be used as the backend of notification systems like [rc-notification](https://github.com/react-component/notification),
+[react-toastify](https://www.npmjs.com/package/react-toastify), or [reapop](https://github.com/LouisBarranqueiro/reapop).
+
+We manage to separate the storage of messages and subscribers. This way,
+developers can design their storing mechanism and integrate this library
+into their codebase.
 
 ## Installation
 
@@ -200,7 +203,8 @@ Therefore, to integrate this library with Redux, we have two options:
 
 ## TODO
 
-- Add Promise as a subscriber.
+- Add Promise as a subscriber
+- Provide performance metrics
 
 ## License
 
